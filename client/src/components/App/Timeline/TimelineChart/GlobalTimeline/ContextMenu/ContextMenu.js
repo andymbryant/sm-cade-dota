@@ -68,7 +68,7 @@ class ContextMenu extends PureComponent {
     }).then(() => {
       this.context.getLoadLabels()
       this.context.changeLabel(null)
-      this.props.toggleContextMenu()
+      // this.props.toggleContextMenu()
     })
   }
 
@@ -145,8 +145,8 @@ class ContextMenu extends PureComponent {
     return (
       <div style={contextMenuStyle} className="context-menu-container" ref={this.contextContainer} onMouseLeave={() => this.props.disableContextMenu()}>
         <div className="label-controls">
-          {/* <div onClick={this.editClick} className="label-edit">Edit</div> */}
-          {/* <div onClick={this.deleteClick} className="label-delete">Delete</div> */}
+          <div onClick={this.editClick} className="label-edit">Edit</div>
+          <div onClick={this.deleteClick} className="label-delete">Delete</div>
           <div onClick={disableContextMenu} className="label-close-button">Close</div>
         </div>
         <div className="label-title-container">
