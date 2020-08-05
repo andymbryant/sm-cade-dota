@@ -36,7 +36,8 @@ app.use(bodyParser.json({
 // URL for database
 const mongoUser = process.env.MONGO_USER
 const mongoPass = process.env.MONGO_PASS
-const mongoUrl = `mongodb://${mongoUser}:${mongoPass}@ds121373.mlab.com:21373/stratmap_dota_dev`
+const mongoUrl = `mongodb://${mongoUser}:${mongoPass}@ds159110.mlab.com:59110/sm_cade_dota`
+// const mongoUrl = `mongodb://${mongoUser}:${mongoPass}@ds121373.mlab.com:21373/stratmap_dota_dev`
 
 mongoose.Promise = global.Promise;
 mongoose.connect(mongoUrl, {
@@ -76,6 +77,7 @@ app.post('/api/matches', function (req, res) {
 })
 
 app.post('/api/events', function (req, res) {
+  console.log(req.body)
   if (EventModel) {
     delete db.models.Event;
   }
