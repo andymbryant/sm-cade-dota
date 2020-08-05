@@ -39,7 +39,6 @@ class AddLabel extends Component {
             className="add-label-button"
             onClick={(() => {
               let response = this.props.addLabel(this.state)
-              console.log(response)
               if (response !== 'failure') {
                 this.clearData()
               }

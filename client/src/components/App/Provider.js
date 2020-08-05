@@ -12,7 +12,7 @@ class Provider extends Component {
     currentMatch: null,
     // authors: ['ericak', 'jimmyt'],
     authors: ['admin', 'p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8', 'p9', 'p10'],
-    currentAuthor: 'admin',
+    currentAuthor: localStorage.getItem('smCurrentAuthor') ? localStorage.getItem('smCurrentAuthor') : 'admin',
     mapPaddingY: 120,
     mapPaddingX: 80,
     playing: false,
@@ -356,7 +356,7 @@ class Provider extends Component {
           if (this.state.brushRange.length === 0) {
             alert('Please make a brush selection.')
             return 'failure';
-          } else if (!((label.title) && (label.author) && (label.description))) {
+          } else if (!((label.title) && (label.description))) {
             alert('Please fill in all fields.')
             return 'failure';
           } else if (this.state.activeLabel) {
@@ -594,6 +594,7 @@ class Provider extends Component {
           this.setState({
             currentAuthor: e
           }, () => {
+            localStorage.setItem('smCurrentAuthor', e)
             this.props.toggleMapLoading()
             this.loadNewData();
           })

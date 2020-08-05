@@ -77,7 +77,6 @@ app.post('/api/matches', function (req, res) {
 })
 
 app.post('/api/events', function (req, res) {
-  console.log(req.body)
   if (EventModel) {
     delete db.models.Event;
   }
@@ -100,10 +99,9 @@ app.post('/api/labels', function (req, res) {
   if (author !== 'admin') {
     authorArray.push(author)
   }
-  console.log(authorArray)
   let query = {
     match: req.body.match,
-    author: { $all: authorArray }
+    author: { $in: authorArray }
     // created: { $gte: startDate, $lt: endDate }
     // _id: { $gte: "5dcae9b95770681080758a63" }
   }
@@ -111,6 +109,7 @@ app.post('/api/labels', function (req, res) {
     .find(query)
     // .find({ match: req.body.match })
     .exec(function (err, label) {
+      console.log(label)
       return res.send(label)
     })
 })
