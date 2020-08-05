@@ -36,7 +36,6 @@ app.use(bodyParser.json({
 // URL for database
 const mongoUser = process.env.MONGO_USER
 const mongoPass = process.env.MONGO_PASS
-console.log(mongoPass)
 const mongoUrl = `mongodb://${mongoUser}:${mongoPass}@ds121373.mlab.com:21373/stratmap_dota_dev`
 
 mongoose.Promise = global.Promise;
@@ -94,9 +93,15 @@ app.post('/api/events', function (req, res) {
 })
 
 app.post('/api/labels', function (req, res) {
+  let author = req.body.author
+  let authorArray = ['admin']
+  if (author !== 'admin') {
+    authorArray.push(author)
+  }
+  console.log(authorArray)
   let query = {
     match: req.body.match,
-    // author: req.body.author,
+    author: { $all: authorArray }
     // created: { $gte: startDate, $lt: endDate }
     // _id: { $gte: "5dcae9b95770681080758a63" }
   }
@@ -108,51 +113,51 @@ app.post('/api/labels', function (req, res) {
     })
 })
 
-// app.post('/api/add-label', function (req, res) {
-//   LabelModel
-//     .create({
-//       id: req.body.id,
-//       title: req.body.title,
-//       author: req.body.author,
-//       timestamp_range: req.body.timestamp_range,
-//       description: req.body.description,
-//       match: req.body.match,
-//       events: req.body.events,
-//       units: req.body.units,
-//       event_ids: req.body.event_ids
-//     }, function (err, label) {
-//       if (err) return handleError(err)
-//       return res.send(label)
-//     })
-// })
+app.post('/api/add-label', function (req, res) {
+  LabelModel
+    .create({
+      id: req.body.id,
+      title: req.body.title,
+      author: req.body.author,
+      timestamp_range: req.body.timestamp_range,
+      description: req.body.description,
+      match: req.body.match,
+      events: req.body.events,
+      units: req.body.units,
+      event_ids: req.body.event_ids
+    }, function (err, label) {
+      if (err) return handleError(err)
+      return res.send(label)
+    })
+})
 
-// app.post('/api/delete-label', function (req, res) {
-//   LabelModel
-//     .deleteOne({
-//       id: req.body.id
-//     }, function (err, label) {
-//       if (err) return handleError(err);
-//       return res.send(label)
-//     })
-// })
+app.post('/api/delete-label', function (req, res) {
+  LabelModel
+    .deleteOne({
+      id: req.body.id
+    }, function (err, label) {
+      if (err) return handleError(err);
+      return res.send(label)
+    })
+})
 
-// app.post('/api/edit-label', function (req, res) {
-//   LabelModel
-//     .findOne({
-//       id: req.body.id
-//     }, function (err, label) {
-//       if (err) return handleError(err);
-//       label.set({
-//         title: req.body.title,
-//         author: req.body.author,
-//         description: req.body.description
-//       });
-//       label.save(function (err, updatedLabel) {
-//         if (err) return handleError(err);
-//         return res.send(updatedLabel)
-//       })
-//     })
-// })
+app.post('/api/edit-label', function (req, res) {
+  LabelModel
+    .findOne({
+      id: req.body.id
+    }, function (err, label) {
+      if (err) return handleError(err);
+      label.set({
+        title: req.body.title,
+        author: req.body.author,
+        description: req.body.description
+      });
+      label.save(function (err, updatedLabel) {
+        if (err) return handleError(err);
+        return res.send(updatedLabel)
+      })
+    })
+})
 
 // If production environment, make build from client
 if (process.env.NODE_ENV === 'production') {

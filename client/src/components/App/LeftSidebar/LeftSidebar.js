@@ -13,7 +13,7 @@ class LeftSidebar extends Component {
       <div className="left-sidebar">
         <AppTitle />
         <MatchSelect />
-        {/* <LabelSelect /> */}
+        <LabelSelect />
         <UnitSelect />
       </div>
     );

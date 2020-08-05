@@ -19,3 +19,5 @@ urls.js
 .env.test.local
 .env.production.local
 .env*
+
+.vscode/
