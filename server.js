@@ -36,8 +36,8 @@ app.use(bodyParser.json({
 // URL for database
 const mongoUser = process.env.MONGO_USER
 const mongoPass = process.env.MONGO_PASS
-const mongoUrl = `mongodb://${mongoUser}:${mongoPass}@ds159110.mlab.com:59110/sm_cade_dota`
-// const mongoUrl = `mongodb://${mongoUser}:${mongoPass}@ds121373.mlab.com:21373/stratmap_dota_dev`
+const mongoUrl = `mongodb+srv://${mongoUser}:${mongoPass}@sm-cade-dota.kv79o.mongodb.net/<dbname>?retryWrites=true&w=majority`
+
 
 mongoose.Promise = global.Promise;
 mongoose.connect(mongoUrl, {
